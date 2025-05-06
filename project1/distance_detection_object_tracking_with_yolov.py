@@ -47,8 +47,8 @@ def on_click(event, x, y, flags, param):
         print(f"Depth @({x},{y}) = {d:.3f} m")
 cv2.setMouseCallback(WIN_NAME, on_click)
 
-try:
-    while True:
+while True:
+    try:
         # — capture & align —
         frames        = pipeline.wait_for_frames()
         aligned       = align.process(frames)
@@ -108,7 +108,8 @@ try:
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+    except Exception as e:
+        print(e)
 
-finally:
-    pipeline.stop()
-    cv2.destroyAllWindows()
+pipeline.stop()
+cv2.destroyAllWindows()
